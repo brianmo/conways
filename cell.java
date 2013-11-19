@@ -75,37 +75,35 @@ public class Cell {
 public void calcNeighbors(Cell[][] cell) {
 
 
-		int col = 0;
-		int row = 0;
-		
-		
+		myNeighbors = 0;
 		 //checks top row for alive
 		for(int i = myX-1;i< myX +1;i++){
-			//things with % tries to do wraparound
-			int toprow = ((myY = 80) +1)%80; // not correct
+			int toprow = ((myY + 80) + 1)%80; // not correct
 			if(cell[i][toprow].myAlive == true){
 				myNeighbors ++;
 			}
 		}
 		//checks bottom row for alive
 		for(int i = myX-1;i< myX +1;i++){
-			int bottomrow =  ((myY = 80) - 1)%80;
+			int bottomrow =  ((myY + 80) - 1)%80;
 			if(cell[i][bottomrow].myAlive == true){
 				myNeighbors ++;
 			}
 		}
 
 		//checks remaining side squares for alive
-		int leftrow = ((myX = 100) -1)%100;
+		//can we just check the middle row and exclude the cell itself?
+		int leftrow = ((myX + 100) - 1)%100;
 		if(cell[leftrow][myY].myAlive == true){	//not sure if this will overcount the diagonals (neighbors 1, 3, 6, 8)
-			/* |1 2 3|
-			 * |4 x 5|
+			/*  _ _ _
+			 * |1|2|3|
+			 * |4|x|5|
 			 * |6 7 8|
 			 */
 			myNeighbors ++;
 		}
 		
-		int rightrow = ((myX = 100) +1)%100;
+		int rightrow = ((myX + 100) +1)%100;
 		if(cell[rightrow][myY].myAlive == true){
 			myNeighbors ++;
 		}
